@@ -107,7 +107,16 @@ function main() {
     if (error) {
       console.error(`\nError returned from GET request:\n${JSON.stringify(error)}`);
     }
-    console.log(`\nResponse returned from GET request:\n${JSON.stringify(data)}`)
+    // let newData = JSON.stringify(data, null, 4)
+    // console.log(typeof(data)) //object
+    // console.log(typeof(newData)) //string
+    // console.log(newData.body)
+    // let newData1 = data
+    // newData['body'] = JSON.parse(newData1.body)
+    // console.log(newData1.body)
+    console.log(JSON.parse(data.body))
+    // console.log(data)
+    console.log(`\nResponse returned from GET request:\n${JSON.stringify(data, null, '\t')}`)
   });
 }
 
