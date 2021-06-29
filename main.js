@@ -130,7 +130,10 @@ class ServiceNowAdapter extends EventEmitter {
                 this.emitOnline();
                 log.debug('ServiceNowAdapter is Healthy');
             }
-            return callback(result, error);
+            if (callback) {
+                return callback(result, error);
+            }
+            // return callback(result, error);
         });
     }
 
