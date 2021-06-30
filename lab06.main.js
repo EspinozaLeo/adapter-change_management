@@ -175,39 +175,24 @@ class ServiceNowAdapter extends EventEmitter {
     }
 
     /**
-   * @memberof ServiceNowAdapter
-   * @method getRecord
-   * @summary Get ServiceNow Record
-   * @description Retrieves a record from ServiceNow.
-   *
-   * @param {ServiceNowAdapter~requestCallback} callback - The callback that
-   *   handles the response.
-   */
+     * @memberof ServiceNowAdapter
+     * @method getRecord
+     * @summary Get ServiceNow Record
+     * @description Retrieves a record from ServiceNow.
+     *
+     * @param {ServiceNowAdapter~requestCallback} callback - The callback that
+     *   handles the response.
+     */
     getRecord(callback) {
-        this.connector.get((data, error) => {
-            var JSONobj = [];
-            if (data.body) {
-                let myObj = JSON.parse(data.body)
-                let resultLength = myObj.result.length
-                for (let i = 0; i < resultLength; i++) {
-                    // console.log(myObj.result[i].number)
-                    JSONobj.push({
-                        "change_ticket_number": myObj.result[i].number,
-                        "active": myObj.result[i].active,
-                        "priority": myObj.result[i].priority,
-                        "description": myObj.result[i].description,
-                        "work_start": myObj.result[i].work_start,
-                        "work_end": myObj.result[i].work_end,
-                        "change_ticket_key": myObj.result[i].sys_id
-                    })
-                }
-                // JSONobj.forEach(element => console.log(element))
-            }
-            if (callback) {
-                return callback(JSONobj, error);
-            }
-        });
+        /**
+         * Write the body for this function.
+         * The function is a wrapper for this.connector's get() method.
+         * Note how the object was instantiated in the constructor().
+         * get() takes a callback function.
+         */
+        this.connector.get(callback)
     }
+
     /**
      * @memberof ServiceNowAdapter
      * @method postRecord
@@ -224,25 +209,7 @@ class ServiceNowAdapter extends EventEmitter {
          * Note how the object was instantiated in the constructor().
          * post() takes a callback function.
          */
-        // this.connector.post(callback)
-        this.connector.post((data, error) => {
-            if (data.body) {
-                let myObj = JSON.parse(data.body).result
-                let postResult = {
-                    "change_ticket_number": myObj.number,
-                    "active": myObj.active,
-                    "priority": myObj.priority,
-                    "description": myObj.description,
-                    "work_start": myObj.work_start,
-                    "work_end": myObj.work_end,
-                    "change_ticket_key": myObj.sys_id
-                }
-                if (callback) {
-                    return callback(postResult, error);
-                }
-                // console.log(postResult)
-            }
-        });
+        this.connector.post(callback)
     }
 }
 
